@@ -21,7 +21,9 @@ html {
 	box-sizing: border-box;
 }
 
-
+/* ********************************** */
+/* UTILIDADES             */
+/* ********************************** */
 .container {
 	max-width: 120rem;
 	margin: 0 auto;
@@ -33,14 +35,15 @@ html {
 	font-size: 3rem;
 }
 
-
+/* --- Nuevos estilos para elementos ocultos o de animación --- */
 .hidden {
-    display: none !important; 
+    display: none !important; /* Para elementos que deben ocultarse completamente */
 }
 
+/* Estilos iniciales para la animación fade-in-on-scroll */
 .fade-in-on-scroll {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(20px); /* Un ligero desplazamiento hacia abajo */
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
@@ -134,26 +137,26 @@ html {
 }
 
 .navbar .fa-bars {
-	display: none; 
+	display: none; /* Se mostrará solo en pantallas pequeñas (media query) */
 }
 
 .menu {
 	display: flex;
 	gap: 2rem;
-    
+    /* TRANSITION PARA EL MENÚ RESPONSIVO */
     transition: all 0.3s ease-in-out;
 }
 
-
+/* Estado activo del menú para pantallas pequeñas */
 .menu.active {
-    display: flex; 
+    display: flex; /* O un bloque/grid si es necesario */
     flex-direction: column;
     position: absolute;
-    top: 100%; 
+    top: 100%; /* Justo debajo de la barra de navegación */
     left: 0;
     width: 100%;
     background-color: var(--primary-color);
-    z-index: 1000; 
+    z-index: 1000; /* Para que esté por encima de otros elementos */
     padding: 1rem 2rem;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
@@ -162,19 +165,19 @@ html {
     width: 100%;
     text-align: center;
     padding: 1rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Separador para los ítems */
 }
 .menu.active li:last-child {
     border-bottom: none;
 }
 
 .menu.active a {
-    color: #fff; 
-    display: block; 
+    color: #fff; /* Texto blanco en el menú desplegado */
+    display: block; /* Para que el área de clic sea más grande */
     padding: 0.5rem 0;
 }
 .menu.active a:hover::after {
-    background-color: var(--dark-color); 
+    background-color: var(--dark-color); /* Cambia el color del subrayado al pasar el ratón */
 }
 .menu.active a:hover {
     color: var(--dark-color);
@@ -249,7 +252,7 @@ html {
 	justify-content: center;
 	height: 100%;
 	padding: 1rem;
-    cursor: pointer; 
+    cursor: pointer; /* Añadir cursor pointer */
 }
 
 .btn-search i {
@@ -299,11 +302,11 @@ html {
 	border-radius: 3rem;
 }
 
-
+/* --- Estilos para Carrusel (si se usa) --- */
 .carousel-container {
     position: relative;
     width: 100%;
-    height: 60rem; 
+    height: 60rem; /* Ajusta la altura según sea necesario */
     overflow: hidden;
 }
 
@@ -315,13 +318,14 @@ html {
 }
 
 .carousel-slides img {
-    min-width: 100%; 
+    min-width: 100%; /* Asegura que cada imagen ocupe todo el ancho */
     height: 100%;
     object-fit: cover;
-    display: none; 
+    display: none; /* Por defecto, ocultamos las imágenes, JS mostrará la activa */
+}
 
 .carousel-slides img.active {
-    display: block; 
+    display: block; /* Muestra solo la imagen activa */
 }
 
 .carousel-prev,
@@ -545,6 +549,7 @@ html {
 	color: #fff;
 }
 
+/* Products */
 .container-products {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
@@ -557,7 +562,7 @@ html {
 	border-radius: 0.5rem;
 	cursor: pointer;
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-    
+    /* Para el filtrado de productos */
     transition: all 0.3s ease-in-out;
 }
 
@@ -633,20 +638,20 @@ html {
 	row-gap: 1rem;
 }
 
-
-.stars-rating { 
+/* --- Estilos para Rating Stars --- */
+.stars-rating { /* Clase modificada de 'stars' a 'stars-rating' */
 	grid-row: 1/2;
 	grid-column: 1/-1;
 }
 
-.stars-rating i { 
+.stars-rating i { /* Clase modificada de 'stars' a 'stars-rating' */
 	font-size: 1.3rem;
-	color: #e0e0e0; 
+	color: #e0e0e0; /* Color por defecto para estrellas no seleccionadas */
     cursor: pointer;
     transition: color 0.2s ease;
 }
 
-.stars-rating i.fa-solid { 
+.stars-rating i.fa-solid { /* Color para estrellas seleccionadas (rellenas) */
     color: var(--primary-color);
 }
 
@@ -739,6 +744,7 @@ html {
 	margin-bottom: 3rem;
 }
 
+/* --- Estilos para Countdown Timer --- */
 .countdown-timer {
     display: flex;
     justify-content: center;
@@ -748,7 +754,7 @@ html {
     background-color: #fff;
     border-radius: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    flex-wrap: wrap; 
+    flex-wrap: wrap; /* Para que los elementos se ajusten en pantallas pequeñas */
 }
 
 .countdown-timer div {
@@ -767,7 +773,7 @@ html {
 }
 
 .countdown-timer div::after {
-    content: attr(data-label); 
+    content: attr(data-label); /* Usa el atributo data-label del JS */
     position: absolute;
     bottom: -2.5rem;
     font-size: 1.2rem;
@@ -776,7 +782,9 @@ html {
 }
 
 
-
+/* ********************************** */
+/* BLOGS               */
+/* ********************************** */
 .blogs {
 	display: flex;
 	flex-direction: column;
@@ -880,6 +888,9 @@ html {
 	background-color: var(--dark-color);
 }
 
+/* ********************************** */
+/* FOOTER               */
+/* ********************************** */
 
 .footer {
 	background-color: var(--primary-color);
@@ -1047,12 +1058,12 @@ html {
 	font-size: 1.6rem;
 }
 
-
+/* --- Estilos para Alertas Personalizadas --- */
 #custom-alert-container {
     position: fixed;
     top: 2rem;
     right: 2rem;
-    z-index: 2000; 
+    z-index: 2000; /* Asegura que esté por encima de todo */
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -1069,13 +1080,15 @@ html {
     align-items: center;
     gap: 1rem;
     min-width: 250px;
-    max-width: 400px; 
+    max-width: 400px; /* Limita el ancho */
+
+    /* Animación de entrada */
     transform: translateX(100%);
     opacity: 0;
-    animation: slideIn 0.5s forwards ease-out, fadeOut 0.5s 2.5s forwards ease-out; 
+    animation: slideIn 0.5s forwards ease-out, fadeOut 0.5s 2.5s forwards ease-out; /* 2.5s antes de empezar a desaparecer */
 }
 
-
+/* Colores de fondo para los tipos de alerta */
 .custom-alert.info {
     background-color: var(--info-color);
 }
@@ -1092,11 +1105,12 @@ html {
     background-color: var(--error-color);
 }
 
-
+/* Iconos de las alertas */
 .custom-alert i {
     font-size: 2rem;
 }
 
+/* Animaciones */
 @keyframes slideIn {
     to {
         transform: translateX(0);
@@ -1116,6 +1130,9 @@ html {
 }
 
 
+/* ********************************** */
+/* MEDIA QUERIES -- 768px       */
+/* ********************************** */
 @media (max-width: 768px) {
 	html {
 		font-size: 55%;
@@ -1135,31 +1152,31 @@ html {
 
 	.navbar {
 		padding: 1rem 2rem;
-        position: relative; 
+        position: relative; /* Necesario para posicionar el menú */
 	}
 
 	.navbar .fa-bars {
-		display: block; 
+		display: block; /* Muestra el icono de la hamburguesa */
 		color: #fff;
 		font-size: 3rem;
         cursor: pointer;
 	}
 
 	.menu {
-        
+        /* Oculta el menú por defecto en móvil */
 		display: none;
-        flex-direction: column; 
+        flex-direction: column; /* Asegura que los ítems se apilen */
         width: 100%;
         position: absolute;
-        top: 100%;
+        top: 100%; /* Colócalo debajo de la navbar */
         left: 0;
-        background-color: var(--primary-color);
+        background-color: var(--primary-color); /* Fondo para el menú desplegable */
         z-index: 1000;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         padding: 1rem 2rem;
 	}
 
-    .menu.active { 
+    .menu.active { /* Estado activo para mostrar el menú */
         display: flex;
     }
 
@@ -1176,12 +1193,12 @@ html {
 
     .menu a {
         color: #fff;
-        font-size: 1.8rem; 
-        display: block; 
+        font-size: 1.8rem; /* Aumenta el tamaño de fuente para mejor toque */
+        display: block; /* Para que el área de clic sea más grande */
         padding: 0.5rem 0;
     }
-    .menu a::after { 
-        background-color: #fff; 
+    .menu a::after { /* Ajustar el subrayado si es necesario */
+        background-color: #fff; /* Asegura el color del subrayado en el menú activo */
     }
 
 
@@ -1253,9 +1270,9 @@ html {
 		gap: 1.5rem;
 	}
 
-   
+    /* Ajuste para el carrusel en móvil */
     .carousel-container {
-        height: 40rem; 
+        height: 40rem; /* Más pequeño en pantallas móviles */
     }
     .carousel-prev,
     .carousel-next {
@@ -1270,7 +1287,7 @@ html {
         height: 1rem;
     }
 
-   
+    /* Ajuste para el contador en móvil */
     .countdown-timer div {
         width: 7rem;
         height: 7rem;
@@ -1283,6 +1300,9 @@ html {
 
 }
 
+/* ********************************** */
+/* MEDIA QUERIES -- 468px       */
+/* ********************************** */
 @media (max-width: 468px) {
 	html {
 		font-size: 42.5%;
@@ -1405,7 +1425,7 @@ html {
 	.content p{
 		font-size: 1.6rem;
 	}
-   
+    /* Ajuste para el contador en móvil más pequeño */
     .countdown-timer div {
         width: 6rem;
         height: 6rem;
@@ -1414,5 +1434,4 @@ html {
     .countdown-timer div::after {
         font-size: 0.9rem;
     }
-}
 }

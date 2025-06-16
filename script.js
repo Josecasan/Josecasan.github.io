@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Navegación Responsiva (Menú hamburguesa)
+
     const navbarToggle = document.querySelector('.fa-bars');
     const navbarMenu = document.querySelector('.navbar .menu');
 
     if (navbarToggle && navbarMenu) {
         navbarToggle.addEventListener('click', () => {
             navbarMenu.classList.toggle('active');
-            // Cierra el menú si se hace clic fuera cuando está abierto
+        
             if (navbarMenu.classList.contains('active')) {
                 document.addEventListener('click', closeMenuOutside);
             } else {
@@ -14,10 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Cierra el menú al hacer clic en un enlace (si es un enlace de ancla)
         navbarMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) { // Solo en pantallas pequeñas
+                if (window.innerWidth <= 768) { 
                     navbarMenu.classList.remove('active');
                 }
             });
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 2. Funcionalidad de Búsqueda
     const searchIcon = document.querySelector('.btn-search');
     const searchInput = document.querySelector('.search-form input[type="search"]');
 
@@ -41,9 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const searchTerm = searchInput.value.trim();
             if (searchTerm !== '') {
                 showCustomAlert(`Buscando: "${searchTerm}"...`);
-                // Aquí podrías redirigir a una página de resultados de búsqueda,
-                // filtrar productos en la misma página (ver punto 3 avanzado)
-                // o enviar una petición AJAX.
+             
                 searchInput.value = '';
             } else {
                 showCustomAlert('Por favor, ingresa algo para buscar.', 'warning');
@@ -51,12 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Sistema de "Añadir al Carrito" (Mejorado)
     const addToCartButtons = document.querySelectorAll('.add-cart');
     const shoppingCartNumber = document.querySelector('.content-shopping-cart .number');
-    let cartItemCount = 0; // Inicializar en 0
+    let cartItemCount = 0; 
 
-    // Cargar el conteo del carrito si está guardado en localStorage
+   
     if (localStorage.getItem('cartCount')) {
         cartItemCount = parseInt(localStorage.getItem('cartCount'));
         shoppingCartNumber.textContent = `(${cartItemCount})`;
@@ -64,38 +59,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addToCartButtons.forEach(button => {
         button.addEventListener('click', (e) => {
-            e.preventDefault(); // Evita cualquier acción predeterminada del enlace/botón
+            e.preventDefault(); 
             cartItemCount++;
             shoppingCartNumber.textContent = `(${cartItemCount})`;
-            localStorage.setItem('cartCount', cartItemCount); // Guardar en localStorage
+            localStorage.setItem('cartCount', cartItemCount); 
             showCustomAlert('Producto añadido al carrito!', 'success');
         });
     });
 
-    // 4. Cambiar entre opciones de productos (Filtro Dinámico)
+  
     const productOptions = document.querySelectorAll('.container-options span');
     const productContainer = document.querySelector('.container-products');
-    const allProducts = Array.from(productContainer.children); // Guarda todos los productos inicialmente
-
+    const allProducts = Array.from(productContainer.children); 
     productOptions.forEach(option => {
         option.addEventListener('click', () => {
-            // Remover la clase 'active' de todas las opciones
+            
             productOptions.forEach(opt => opt.classList.remove('active'));
-            // Añadir la clase 'active' a la opción clicada
+           
             option.classList.add('active');
 
-            const selectedFilter = option.dataset.filter; // Usar data-filter en HTML
+            const selectedFilter = option.dataset.filter; 
             filterProducts(selectedFilter);
         });
     });
 
     function filterProducts(filter) {
         allProducts.forEach(product => {
-            // Asume que cada .card-product tiene un atributo data-category="destacado", "reciente", "vendido"
+           
             const category = product.dataset.category;
 
             if (filter === 'all' || category === filter) {
-                product.style.display = 'block'; // O el display original
+                product.style.display = 'block';
             } else {
                 product.style.display = 'none';
             }
@@ -103,15 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showCustomAlert(`Mostrando productos: ${filter === 'all' ? 'todos' : filter}`, 'info');
     }
 
-    // Inicializar el filtro al cargar la página (muestra destacados por defecto)
-    // Se asume que el primer span en .container-options es 'Destacados' y tiene data-filter="featured"
     const defaultFilterOption = document.querySelector('.container-options span.active');
     if (defaultFilterOption) {
         filterProducts(defaultFilterOption.dataset.filter);
     }
 
 
-    // 5. Interacción con el Boletín informativo (Newsletter)
     const newsletterInput = document.querySelector('.newsletter input[type="email"]');
     const newsletterButton = document.querySelector('.newsletter button');
 
@@ -131,9 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- NUEVAS FUNCIONALIDADES ---
-
-    // 6. Desplazamiento Suave (Smooth Scrolling)
     document.querySelectorAll('.navbar .menu a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -149,21 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 7. Carrusel/Slider Básico (Para el Banner, si lo deseas hacer dinámico)
-    // Necesitarás añadir un HTML específico para el carrusel con imágenes y botones de navegación
-    // Ejemplo de estructura HTML:
-    /*
-    <div class="carousel-container">
-        <div class="carousel-slides">
-            <img src="img/banner.jpg" class="active">
-            <img src="img/banner2.jpg">
-            <img src="img/banner3.jpg">
-        </div>
-        <button class="carousel-prev">❮</button>
-        <button class="carousel-next">❯</button>
-        <div class="carousel-dots"></div>
-    </div>
-    */
+   
+    
     const carouselContainer = document.querySelector('.carousel-container');
     if (carouselContainer) {
         const slides = carouselContainer.querySelectorAll('.carousel-slides img');
@@ -173,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentSlide = 0;
         let slideInterval;
 
-        // Crear puntos de navegación
+    
         slides.forEach((_, index) => {
             const dot = document.createElement('span');
             dot.classList.add('dot');
@@ -208,9 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.addEventListener('click', nextSlide);
         prevBtn.addEventListener('click', prevSlide);
 
-        // Auto-play
+        
         function startSlider() {
-            slideInterval = setInterval(nextSlide, 5000); // Cambia cada 5 segundos
+            slideInterval = setInterval(nextSlide, 5000); 
         }
 
         function stopSlider() {
@@ -224,57 +199,50 @@ document.addEventListener('DOMContentLoaded', () => {
         startSlider();
     }
 
-
-    // 8. Sistema de Puntuación con Estrellas (Rating Stars)
-    // Asume que tienes un contenedor para las estrellas con la clase 'stars-rating' y dentro de ellas, íconos de estrellas
     document.querySelectorAll('.stars-rating').forEach(ratingContainer => {
         const stars = ratingContainer.querySelectorAll('i');
 
         stars.forEach((star, index) => {
-            star.dataset.value = index + 1; // Asignar un valor a cada estrella
+            star.dataset.value = index + 1; 
 
             star.addEventListener('mouseover', () => {
                 highlightStars(stars, index + 1);
             });
 
             star.addEventListener('mouseout', () => {
-                // Volver al estado guardado o inicial si no hay clic previo
+                
                 const currentValue = ratingContainer.dataset.rating || 0;
                 highlightStars(stars, currentValue);
             });
 
             star.addEventListener('click', () => {
                 const value = index + 1;
-                ratingContainer.dataset.rating = value; // Guardar la puntuación seleccionada
+                ratingContainer.dataset.rating = value; 
                 highlightStars(stars, value);
                 showCustomAlert(`Has puntuado con ${value} estrellas.`, 'success');
-                // Aquí podrías enviar la puntuación a un servidor
+             
             });
         });
 
-        // Función para resaltar estrellas
+        
         function highlightStars(starElements, count) {
             starElements.forEach((s, i) => {
                 if (i < count) {
                     s.classList.remove('fa-regular');
-                    s.classList.add('fa-solid'); // Estrella rellena
+                    s.classList.add('fa-solid'); 
                 } else {
                     s.classList.remove('fa-solid');
-                    s.classList.add('fa-regular'); // Estrella vacía
+                    s.classList.add('fa-regular'); 
                 }
-                // Asegúrate de que el color sea el de tus estrellas principales (primary-color)
-                s.style.color = (i < count) ? 'var(--primary-color)' : ''; // o tu color por defecto
+      
+                s.style.color = (i < count) ? 'var(--primary-color)' : ''; 
             });
         }
 
-        // Inicializar estrellas si hay un rating predefinido
         const initialRating = ratingContainer.dataset.rating || 0;
         highlightStars(stars, initialRating);
     });
 
-    // 9. Contador de Tiempo para Ofertas (Countdown Timer)
-    // Necesitas un elemento HTML con la clase 'countdown-timer' y un data-target-date="YYYY-MM-DDTHH:MM:SS"
-    // Ejemplo: <div class="countdown-timer" data-target-date="2025-12-31T23:59:59"></div>
     const countdownTimers = document.querySelectorAll('.countdown-timer');
 
     countdownTimers.forEach(timer => {
@@ -311,12 +279,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const interval = setInterval(updateCountdown, 1000);
-        updateCountdown(); // Llamada inicial para mostrar el contador inmediatamente
+        updateCountdown();
     });
 
-
-    // 10. Alertas Personalizadas (Función de Utilidad)
-    // En lugar del feo alert() del navegador
     function showCustomAlert(message, type = 'info', duration = 3000) {
         const alertContainer = document.getElementById('custom-alert-container') || (() => {
             const div = document.createElement('div');
@@ -329,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '10px',
-                pointerEvents: 'none' // Para que no bloquee clics
+                pointerEvents: 'none'
             });
             document.body.appendChild(div);
             return div;
@@ -347,24 +312,24 @@ document.addEventListener('DOMContentLoaded', () => {
             transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out',
             transform: 'translateX(100%)',
             boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-            pointerEvents: 'auto' // Habilitar clics en la alerta misma
+            pointerEvents: 'auto' 
         });
 
-        // Estilos por tipo
+        
         if (type === 'success') alertBox.style.backgroundColor = '#4CAF50';
         else if (type === 'warning') alertBox.style.backgroundColor = '#ff9800';
         else if (type === 'error') alertBox.style.backgroundColor = '#f44336';
-        else alertBox.style.backgroundColor = '#2196F3'; // 'info'
+        else alertBox.style.backgroundColor = '#2196F3'; 
 
         alertContainer.appendChild(alertBox);
 
-        // Animación de entrada
+        
         setTimeout(() => {
             alertBox.style.opacity = '1';
             alertBox.style.transform = 'translateX(0)';
         }, 50);
 
-        // Animación de salida y remoción
+    
         setTimeout(() => {
             alertBox.style.opacity = '0';
             alertBox.style.transform = 'translateX(100%)';
@@ -372,20 +337,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }, duration);
     }
 
-    // 11. Animación al Scroll (Ej. Fade-in de elementos)
-    const fadeInElements = document.querySelectorAll('.fade-in-on-scroll'); // Añade esta clase a los elementos que quieres animar
-
+    const fadeInElements = document.querySelectorAll('.fade-in-on-scroll'); 
     const observerOptions = {
-        root: null, // viewport
+        root: null, 
         rootMargin: '0px',
-        threshold: 0.1 // 10% del elemento visible para activar
+        threshold: 0.1 
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible'); // Añade una clase para activar la animación CSS
-                observer.unobserve(entry.target); // Deja de observar una vez animado
+                entry.target.classList.add('visible'); 
+                observer.unobserve(entry.target); 
             }
         });
     }, observerOptions);
@@ -393,10 +356,5 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeInElements.forEach(element => {
         observer.observe(element);
     });
-
-    // Añade el CSS para .fade-in-on-scroll y .fade-in-on-scroll.visible
-    // .fade-in-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-    // .fade-in-on-scroll.visible { opacity: 1; transform: translateY(0); }
-
 
 });
